@@ -1,0 +1,42 @@
+{% extends 'index.html' %}
+
+{% block body %}
+    <div class="container">
+        <section style=" height: auto;border-radius: 15px;background-color: lightpink">
+            <h1 class="text-center font-italic  align-content-center flex-wrap" style="color: white">Acerca de As de Sueños</h1>
+        </section>
+        <br>
+        <section style="border: 2px solid lightpink; height: auto; border-radius: 15px">
+
+            <p class="text-justify container">
+                La arquitectura es el arte y la técnica de proyectar, diseñar, construir y modificar el hábitat humano,
+                incluyendo edificios de todo tipo, estructuras arquitectónicas, espacios arquitectónicos y urbanos. El
+                término «arquitectura» proviene del griego ἀρχ- (arch- raíz de la palabra ‘jefe’ o ‘autoridad’), y
+                τέκτων (tekton ‘constructor'). Así, para los antiguos griegos, el arquitecto era el jefe o director de
+                la construcción, y la arquitectura la técnica o arte de quien realizaba el proyecto y dirigía la
+                construcción de los edificios y estructuras, ya que la palabra τεχνή (techné) significa ‘creación,
+                invención o arte’. De ella proceden las palabras «técnica» y también «tectónico» (‘constructivo’).
+            </p>
+
+        </section>
+        <br>
+        <section>
+            <div class="card-deck">
+
+                {% for foto in foto1%}<div class="card">
+                    <img class="card-img-top" src="{{ foto.foto.url }}" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Ejemplo</h5>
+                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                    </div>
+                </div>{% endfor %}
+
+            </div>
+        </section>
+
+    </div>
+{% endblock %}
+{% block servicios %}
+
+{% endblock %}
