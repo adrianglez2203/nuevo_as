@@ -3,9 +3,42 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 
 {% block body_class %}template-blogpage{% endblock %}
+{% block navbar %}
 
+       <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" style="background-color: #ffd9ec">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="{% url 'inicio' %}">As de Sueños</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'inicio' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contactos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'blog' %}">Blog</a>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+{% endblock %}
 {% block cuerpo %}
     <br><br>
+    {% if search_term %}
+  <header class="page-header">
+      <h1 class="page-title">Search Results for <span>{{ search_type }}: {{ search_term }}</span></h1>
+  </header>
+{% endif %}
     <div class="container container-fluid text-center">
         <div class="row align-items-center">
             <div class="col-sm col-md-12 card">
@@ -38,6 +71,22 @@
                 </div>
 
             {% endif %}
+             </div>
+            <div class="col-sm col-md-12">
+              {% with categories=page.categories.all %}
+                 {% if categories %}
+                    <h3>Categorias</h3>
+                     <ul>
+                        {% for category in categories %}
+                            <li style="display: inline">
+                                <a href="" class="badge badge-warning">{{ category.name }}</a>
+
+                            </li>
+                        {% endfor %}
+                     </ul>
+                 {% endif %}
+              {% endwith %}
+
              </div>
         </div>
     </div>
