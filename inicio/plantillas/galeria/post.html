@@ -1,0 +1,134 @@
+{% extends 'index.html' %}
+{% block navbar %}
+
+       <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" style="background-color: #ffd9ec">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="{% url 'inicio' %}">As de Sueños</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'inicio' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contactos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'blog' %}">Blog</a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+{% endblock %}
+{% block cuerpo %}
+    <br><br>
+
+<!-- Section: Blog v.4 -->
+<section class="my-5 container">
+
+  <!-- Grid row -->
+  <div class="row">
+
+    <!-- Grid column -->
+    <div class="col-md-12">
+
+      <!-- Card -->
+      <div class="card card-cascade wider reverse">
+         <!-- Card content -->
+        <div class="card-body card-body-cascade text-center">
+
+          <!-- Title -->
+          <h1 class="font-weight-bold"><a>{{ post.title }}</a></h1>
+          <!-- Data -->
+            <h3><p>Escrito por <a><strong>{{ post.author }}</strong></a>, {{ post.published }}</p></h3>
+
+
+        </div>
+        <!-- Card content -->
+        <!-- Card image -->
+        <div class="view view-cascade overlay">
+          <img class="card-img-top" src="{{ post.image.url }}" alt="Sample image">
+          <a href="#!">
+            <div class="mask rgba-white-slight"></div>
+          </a>
+        </div>
+
+
+
+      </div>
+      <!-- Card -->
+
+      <!-- Excerpt -->
+      <div class="mt-5">
+        {{ post.content|safe }}
+      </div>
+
+    </div>
+    <!-- Grid column -->
+
+  </div>
+  <!-- Grid row -->
+
+  <hr class="mb-5 mt-4">
+
+
+</section>
+<!-- Section: Blog v.4 -->
+{#    <!-- Section: Blog v.3 -->#}
+{#<section class="my-5 container">#}
+{##}
+{#  <!-- Section heading -->#}
+{#  <h2 class="h1-responsive font-weight-bold text-center my-5">Publicaciones Recientes</h2>#}
+{#  <!-- Section description -->#}
+{##}
+{##}
+{##}
+{#  <div class="row">#}
+{##}
+{#    <!-- Grid column -->#}
+{#    <div class="col-lg-5 col-xl-4">#}
+{##}
+{#      <!-- Featured image -->#}
+{#      <div class="view overlay rounded z-depth-1-half mb-lg-0 mb-4">#}
+{#        <img class="img-fluid" src="{{ post.image.url }}"  alt="Sample image">#}
+{#        <a>#}
+{#          <div class="mask rgba-white-slight"></div>#}
+{#        </a>#}
+{#      </div>#}
+{##}
+{#    </div>#}
+{#    <!-- Grid column -->#}
+{##}
+{#    <!-- Grid column -->#}
+{#    <div class="col-lg-7 col-xl-8">#}
+{##}
+{#      <!-- Post title -->#}
+{#      <h3 class="font-weight-bold mb-3"><strong>{{ post.title }}</strong></h3>#}
+{#      <!-- Excerpt -->#}
+{#      <p class="dark-grey-text">{{ post.content}}</p>#}
+{#      <!-- Post data -->#}
+{#      <p>por <a class="font-weight-bold">{{ post.author }}</a>, {{ post.published|timesince }}</p>#}
+{##}
+{##}
+{##}
+{#    </div>#}
+{#    <!-- Grid column -->#}
+{##}
+{#  </div>#}
+{#  <!-- Grid row -->#}
+{##}
+{#  <hr class="my-5">#}
+{##}
+{##}
+{##}
+{#</section>#}
+{#<!-- Section: Blog v.3 -->#}
+
+{% endblock %}

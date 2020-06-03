@@ -1,0 +1,51 @@
+body{
+    background-color: white;
+}
+#navbar{
+    background-color: white;
+
+
+}
+#footer{
+    background-color: white;
+}
+#logo:hover{
+    width: 100.5%;
+    height: 100.5%;
+}
+
+
+#navbar>a{
+    font-size: x-large;
+    color: black;
+}
+#ul-nav>li>a{
+    font-size: x-large;
+    color: black;
+}
+
+.card-header:hover{
+    background-color: pink;
+}
+.card-body{
+    font-size: larger;
+}
+.card-header>h5>button>h2{
+    color: black;
+}
+
+#valor{
+    color: #0d95e8;
+}
+.navbar-toggler{
+    color: #0c5460;
+}
+.navbar-toggler-icon{
+    color: #1c7430;
+}
+.masthead {
+    background: -webkit-gradient(linear, left top, left bottom,
+    from(rgba(92, 77, 66, .8)), to(rgba(92, 77, 66, .8))),
+    url(../photo/tarjeta/decoracion.jpg);
+}
+

@@ -33,69 +33,341 @@
 
 {% endblock %}
 {% block cuerpo %}
-    <br><br>
-    {% if search_term %}
-  <header class="page-header">
-      <h1 class="page-title">Search Results for <span>{{ search_type }}: {{ search_term }}</span></h1>
-  </header>
-{% endif %}
-    <div class="container container-fluid text-center">
-        <div class="row align-items-center">
-            <div class="col-sm col-md-12 card">
-            <h1>{{ page.title }}</h1>
-             <p class="meta" style="font-size: small">Publicado el: {{ page.date }}</p>
-            <p class="meta" style="font-size: medium">Autor: {{ page.author }}</p>
-                 <div class="col-smcol-md-12 align-content-md-center pull-right">
-              {% for item in page.gallery_images.all %}
-            <div style="" >
+{#    <br><br>#}
+{#    {% if search_term %}#}
+{#  <header class="page-header">#}
+{#      <h1 class="page-title">Search Results for <span>{{ search_type }}: {{ search_term }}</span></h1>#}
+{#  </header>#}
+{#{% endif %}#}
+{#    <div class="container container-fluid text-center">#}
+{#        <div class="row align-items-center ">#}
+{#            <div class="col-sm col-md-9 card ">#}
+{#            <h1>{{ page.title }}</h1>#}
+{#             <p class="meta" style="font-size: small">Publicado el: {{ page.date }}</p>#}
+{#            <p class="meta" style="font-size: medium">Autor: {{ page.author }}</p>#}
+{#                 <div class="col-smcol-md-12 align-content-md-center pull-right">#}
+{#              {% for item in page.gallery_images.all %}#}
+{#            <div style="" >#}
+{##}
+{#                {% image item.image fill-800x500  %}#}
+{#                <p>{{ item.caption }}</p>#}
+{#            </div>#}
+{#        {% endfor %}#}
+{#        </div>#}
+{#            <div class="intro">{{ page.intro }}</div>#}
+{#            <p class="">#}
+{#                {{ page.body|richtext }}#}
+{#            </p>#}
+{#            </div>#}
+{##}
+{#            <div class="col-sm col-md-2 w-25">#}
+{#                {% if page.tags.all.count %}#}
+{#                <div class="tags">#}
+{#                    <h3>Tags</h3>#}
+{#                    {% for tag in page.tags.all %}#}
+{##}
+{#                        <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="badge badge-info">{{ tag }}</a>#}
+{#                    {% endfor %}#}
+{#                </div>#}
+{##}
+{#            {% endif %}#}
+{#             </div>#}
+{#            <div class="col-sm col-md-1 w-25">#}
+{#              {% with categories=page.categories.all %}#}
+{#                 {% if categories %}#}
+{#                    <h3>Categorias</h3>#}
+{#                     <ul>#}
+{#                        {% for category in categories %}#}
+{#                            <li style="display: inline">#}
+{#                                <a href="" class="badge badge-warning">{{ category.name }}</a>#}
+{##}
+{#                            </li>#}
+{#                        {% endfor %}#}
+{#                     </ul>#}
+{#                 {% endif %}#}
+{#              {% endwith %}#}
+{##}
+{#             </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <br><br>#}
+{#        <p class="text-center"><a href="{{ page.get_parent.url }}">Retornar al blog</a></p>#}
+{#    </div>#}
+{##}
+{##}
+         <main class="mt-5 pt-5">
+            <div class="container">
 
-                {% image item.image fill-800x500  %}
-                <p>{{ item.caption }}</p>
-            </div>
-        {% endfor %}
-        </div>
-            <div class="intro">{{ page.intro }}</div>
-            <p class="">
-                {{ page.body|richtext }}
-            </p>
-            </div>
+      <!--Section: Post-->
+                <section class="mt-4">
 
-            <div class="col-sm col-md-12">
-                {% if page.tags.all.count %}
-                <div class="tags">
-                    <h3>Tags</h3>
-                    {% for tag in page.tags.all %}
+                <!--Grid row-->
+                <div class="row">
 
-                        <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="badge badge-info">{{ tag }}</a>
-                    {% endfor %}
+                  <!--Grid column-->
+                  <div class="col-md-8 mb-4">
+
+
+                    <!--Card-->
+                    <div class="card mb-4 wow fadeIn">
+
+                      <!--Card content-->
+                      <div class="card-body text-center">
+
+
+
+                        <p>{{ page.title }}</p>
+
+                        <h5 class="my-4">
+                          <strong>{{ page.intro }}</strong>
+                        </h5>
+
+                        <!-- Logo carousel -->
+                        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="1800">
+                          <div class="carousel-inner">
+                            <!-- First slide -->
+                            {% for item in page.gallery_images.all %}
+
+
+                                 {{ item.image }}
+{#                                <p>{{ item.caption }}</p>#}
+
+
+                                <div class="carousel-item">
+                              <!--Grid row-->
+                              <div class="row">
+
+                                <!--First column-->
+                                <div class="col-lg-3 col-md-6 d-flex align-items-center justify-content-center">
+                                  <img src="" class="img-fluid px-4" alt=""
+                                    style="max-height: 40px">
+                                </div>
+                                <!--/First column-->
+
+
+
+                              </div>
+                              <!--/Grid row-->
+                            </div>
+                            <!-- First slide -->
+                            {% endfor %}
+
+                          </div>
+                        </div>
+                        <!-- Logo carousel -->
+
+                        <hr>
+
+                          <h5 class="my-4">
+                              <strong>{{page.author}}</strong>
+                            </h5>
+                          <h5 class="my-4">
+                              <strong>{{ page.date }}</strong>
+                            </h5>
+
+
+                      </div>
+
+                    </div>
+                    <!--/.Card-->
+
+                    <!--Card-->
+                    <div class="card mb-4 wow fadeIn">
+
+                      <!--Card content-->
+                      <div class="card-body">
+
+                        <p class="h5 my-4">{{ page.body|richtext }}</p>
+
+
+
+
+
+
+                      </div>
+
+                    </div>
+                    <!--/.Card-->
+
+
+
+                    <!--Comments-->
+                    <div class="card card-comments mb-3 wow fadeIn">
+                      <div class="card-header font-weight-bold">Comentarios</div>
+                      <div class="card-body">
+
+                        <div class="media d-block d-md-flex mt-4">
+                          <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (20).jpg" alt="Generic placeholder image">
+                          <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                            <h5 class="mt-0 font-weight-bold">Miley Steward
+                              <a href="" class="pull-right">
+                                <i class="fas fa-reply"></i>
+                              </a>
+                            </h5>
+                            <p class="h5">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+                            pariatur. Excepteur sint occaecat
+                            cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                              </p>
+                            <div class="media d-block d-md-flex mt-3">
+                              <img class="d-flex mb-3 mx-auto " src="https://mdbootstrap.com/img/Photos/Avatars/img (27).jpg"
+                                alt="Generic placeholder image">
+                              <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                                <h5 class="mt-0 font-weight-bold">Tommy Smith
+                                  <a href="" class="pull-right">
+                                    <i class="fas fa-reply"></i>
+                                  </a>
+                                </h5>
+                                <p class="h5">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                                laudantium, totam rem aperiam, eaque
+                                ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta
+                                    sunt explicabo.</p>
+                              </div>
+                            </div>
+
+                            <!-- Quick Reply -->
+                            <div class="form-group mt-4">
+                              <label for="quickReplyFormComment">Tu Comentario</label>
+                              <textarea class="form-control" id="quickReplyFormComment" rows="5"></textarea>
+
+                              <div class="text-center">
+                                <button class="btn btn-info btn-sm" type="submit">Comentar</button>
+                              </div>
+                            </div>
+
+
+
+                          </div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                    <!--/.Comments-->
+
+                    <!--Reply-->
+                    <div class="card mb-3 wow fadeIn">
+                      <div class="card-header font-weight-bold">Leave a reply</div>
+                      <div class="card-body">
+
+                        <!-- Default form reply -->
+                        <form>
+
+                          <!-- Comment -->
+                          <div class="form-group">
+                            <label for="replyFormComment">Your comment</label>
+                            <textarea class="form-control" id="replyFormComment" rows="5"></textarea>
+                          </div>
+
+                          <!-- Name -->
+                          <label for="replyFormName">Your name</label>
+                          <input type="email" id="replyFormName" class="form-control">
+
+                          <br>
+
+                          <!-- Email -->
+                          <label for="replyFormEmail">Your e-mail</label>
+                          <input type="email" id="replyFormEmail" class="form-control">
+
+
+                          <div class="text-center mt-4">
+                            <button class="btn btn-info btn-md" type="submit">Post</button>
+                          </div>
+                        </form>
+                        <!-- Default form reply -->
+
+
+
+                      </div>
+                    </div>
+                    <!--/.Reply-->
+
+                  </div>
+                  <!--Grid column-->
+
+                  <!--Grid column-->
+                  <div class="col-md-4 mb-4">
+
+
+
+                    <!--Card : Dynamic content wrapper-->
+                    <div class="card mb-4 text-center wow fadeIn">
+
+                      <div class="card-header">Quiere ser notificado de los nuevos articulos</div>
+
+                      <!--Card content-->
+                      <div class="card-body">
+
+                        <!-- Default form login -->
+                        <form>
+
+                          <!-- Default input email -->
+                          <label for="defaultFormEmailEx" class="grey-text">Email</label>
+                          <input type="email" id="defaultFormLoginEmailEx" class="form-control">
+
+                          <br>
+
+                          <!-- Default input password -->
+                          <label for="defaultFormNameEx" class="grey-text">Nombre</label>
+                          <input type="text" id="defaultFormNameEx" class="form-control">
+
+                          <div class="text-center mt-4">
+                            <button class="btn btn-info btn-md" type="submit">Subscribirse</button>
+                          </div>
+                        </form>
+                        <!-- Default form login -->
+
+                      </div>
+
+                    </div>
+                    <!--/.Card : Dynamic content wrapper-->
+
+                    <!--Card-->
+                    <div class="card mb-4 wow fadeIn">
+
+                      <div class="card-header text-center">Etiquetas</div>
+
+                      <!--Card content-->
+                      <div class="card-body">
+
+                        <ul class="list-unstyled">
+                          <li class="media">
+
+                            <div class="media-body">
+
+                                {% if page.tags.all.count %}
+                                    <div class="tags">
+
+                                         {% for tag in page.tags.all %}
+
+                                            <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="badge badge-info">{{ tag }}</a>
+                                        {% endfor %}
+                                     </div>
+
+                                 {% endif %}
+
+
+                            </div>
+                          </li>
+
+                        </ul>
+
+                      </div>
+
+                    </div>
+                    <!--/.Card-->
+
+                  </div>
+                  <!--Grid column-->
+
                 </div>
+                <!--Grid row-->
 
-            {% endif %}
-             </div>
-            <div class="col-sm col-md-12">
-              {% with categories=page.categories.all %}
-                 {% if categories %}
-                    <h3>Categorias</h3>
-                     <ul>
-                        {% for category in categories %}
-                            <li style="display: inline">
-                                <a href="" class="badge badge-warning">{{ category.name }}</a>
+              </section>
+              <!--Section: Post-->
 
-                            </li>
-                        {% endfor %}
-                     </ul>
-                 {% endif %}
-              {% endwith %}
-
-             </div>
-        </div>
-    </div>
-
-    <br><br>
-        <p class="text-center"><a href="{{ page.get_parent.url }}">Retornar al blog</a></p>
-    </div>
-
-
+            </div>
+        </main>
 {% endblock %}
 {% block script %}
 <script>
