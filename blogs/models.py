@@ -4,14 +4,20 @@ from django import forms
 from modelcluster.fields import ParentalKey
 from modelcluster.contrib.taggit import ClusterTaggableManager
 from taggit.models import TaggedItemBase
-
+from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from wagtail.core.models import Page, Orderable
 from wagtail.core.fields import RichTextField
-from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel
+from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, MultiFieldPanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
+from wagtail.images.blocks import ImageChooserBlock
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
+
+from wagtail.core.fields import StreamField
+from wagtail.core import blocks
+
+
 class HomePage(Page):
     body = RichTextField(blank=True)
 
@@ -46,6 +52,9 @@ class BlogIndexPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
     ]
+
+
+
 class BlogPageTag(TaggedItemBase):
     content_object = ParentalKey(
         'BlogPage',
@@ -56,7 +65,15 @@ class BlogPageTag(TaggedItemBase):
 class BlogPage(RoutablePageMixin,Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
-    body = RichTextField(features=['h1','h2', 'h3','h4','h5','h6', 'bold', 'italic', 'link','ol','ul','hr','document-link','image','embed','code','superscript','subscript','blockquote'])
+    # body = RichTextField(features=['h1','h2', 'h3','h4','h5','h6', 'bold', 'italic', 'link','ol','ul','hr','document-link','image','embed','code','superscript','subscript','blockquote'])
+    body = StreamField([
+        ('heading', blocks.CharBlock(classname="full title")),
+        ('paragraph', blocks.RichTextBlock()),
+        ('image', ImageChooserBlock()),
+        ('list', blocks.ListBlock(blocks.CharBlock(label=""))),
+        ('document', blocks.BlockQuoteBlock())
+    ])
+
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     author = models.CharField(max_length=255,default='Adrian')
     categories = ParentalManyToManyField('BlogCategory', blank=True)
@@ -79,7 +96,8 @@ class BlogPage(RoutablePageMixin,Page):
         ], heading="Blog information"),
         FieldPanel('intro'),
         FieldPanel('author'),
-        FieldPanel('body'),
+        # FieldPanel('body'),
+        StreamFieldPanel('body'),
         InlinePanel('gallery_images', label="Gallery images"),
         FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
     ]

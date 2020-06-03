@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'wagtail.search',
     'wagtail.admin',
     'wagtail.core',
-    # "wagtail.contrib.wagtailroutablepage",
+    "wagtail.contrib.routable_page",
 
 
     # Third party package used by our blog
