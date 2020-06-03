@@ -1,0 +1,26 @@
+{% extends "index.html" %}
+{% load wagtailcore_tags %}
+
+{% block cuerpo %}
+    <br><br><br>
+    <div class="container-fluid mx-auto text-center">
+        {% if request.GET.tag|length %}
+            <h4>Mostrando artículos con la etiqueta:"{{ request.GET.tag|upper }}"</h4>
+        {% endif %}
+
+        {% for blogpage in blogpages %}
+
+              <p>
+                  <strong><a href="{% pageurl blogpage %}">{{ blogpage.title }}</a></strong><br />
+
+                  <small>Revisado: {{ blogpage.latest_revision_created_at }}</small><br />
+                  {% if blogpage.author %}
+                    <p>By {{ blogpage.author.profile }}</p>
+                  {% endif %}
+              </p>
+
+        {% empty %}
+            No hay paginas con esa etiqueta
+        {% endfor %}
+    </div>
+{% endblock %}

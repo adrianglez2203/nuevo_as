@@ -1,0 +1,58 @@
+{% extends "index.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogpage{% endblock %}
+
+{% block cuerpo %}
+    <br><br>
+    <div class="container container-fluid text-center">
+        <div class="row align-items-center">
+            <div class="col-sm col-md-12 card">
+            <h1>{{ page.title }}</h1>
+             <p class="meta" style="font-size: small">Publicado el: {{ page.date }}</p>
+            <p class="meta" style="font-size: medium">Autor: {{ page.author }}</p>
+                 <div class="col-smcol-md-12 align-content-md-center pull-right">
+              {% for item in page.gallery_images.all %}
+            <div style="" >
+
+                {% image item.image fill-800x500  %}
+                <p>{{ item.caption }}</p>
+            </div>
+        {% endfor %}
+        </div>
+            <div class="intro">{{ page.intro }}</div>
+            <p class="">
+                {{ page.body|richtext }}
+            </p>
+            </div>
+
+            <div class="col-sm col-md-12">
+                {% if page.tags.all.count %}
+                <div class="tags">
+                    <h3>Tags</h3>
+                    {% for tag in page.tags.all %}
+
+                        <a href="{% slugurl 'tags' %}?tag={{ tag }}" class="badge badge-info">{{ tag }}</a>
+                    {% endfor %}
+                </div>
+
+            {% endif %}
+             </div>
+        </div>
+    </div>
+
+    <br><br>
+        <p class="text-center"><a href="{{ page.get_parent.url }}">Retornar al blog</a></p>
+    </div>
+
+
+{% endblock %}
+{% block script %}
+<script>
+    $(document).ready(function () {
+       $(".rich-text").css('text-align','justify');
+
+    });
+</script>
+{% endblock %}

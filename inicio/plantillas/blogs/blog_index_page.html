@@ -1,0 +1,65 @@
+{% extends "index.html" %}
+
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block body_class %}template-blogindexpage{% endblock %}
+{% block navbar %}
+
+       <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav" style="background-color: #ffd9ec">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="{% url 'inicio' %}">As de Sueños</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                    data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto my-2 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'inicio' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#contact">Contactos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="{% url 'blog' %}">Blog</a>
+                    </li>
+                    <form role="search" method="get" class="form-search" action="" method="get">
+    <div class="input-group">
+        <input type="text" class="form-control search-query" name="q" placeholder="Search&hellip;" title="Search for:" />
+        <span class="input-group-btn">
+          <button type="submit" class="btn btn-default" name="submit" id="searchsubmit" value="Search">
+            <span class="glyphicon glyphicon-search"></span>
+          </button>
+        </span>
+    </div>
+</form>
+
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+{% endblock %}
+{% block cuerpo %}
+    <br><br><br>
+    <h1 class="text-center">{{ page.title|upper }}</h1>
+    <br>
+    <div class="intro">{{ page.intro|richtext }}</div>
+
+{% for post in blogpages %}
+    {% with post=post.specific %}
+        <div class="container container-fluid left">
+        <div class="jumbotron">
+            <h1 class="display-5">{{post.title}}</h1>
+            <p class="lead">{{ post.intro }}</p>
+            <hr class="my-3">
+             <p style="font-size: small">{{ post.body|truncatechars:60 |safe}}</p>
+            <a class="btn btn-primary btn-sm" href="{% pageurl post %}" role="button">Leer Más</a>
+        </div>
+        </div>
+    {% endwith %}
+{% endfor %}
+
+
+{% endblock %}
