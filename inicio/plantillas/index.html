@@ -1,4 +1,7 @@
 {% load static %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +55,7 @@
                         <a class="nav-link js-scroll-trigger" href="#contact">Contactos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger" href="{% url 'blog' %}">Blog</a>
+                        <a class="nav-link js-scroll-trigger" href="/blog">Blog</a>
                     </li>
 {#                    <li class="nav-item">#}
 {#                        <a class="nav-link js-scroll-trigger" href="{% url 'blog' %}">Blog</a>#}
@@ -87,7 +90,7 @@
                 </div>
             </div>
         </header>{% endblock %}
-
+{{ form }}
     <!-- About Section -->
     <section class="page-section bg-primary" id="about">
         <div class="container">

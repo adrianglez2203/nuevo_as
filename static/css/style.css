@@ -16,11 +16,11 @@ body{
 
 
 #navbar>a{
-    font-size: x-large;
+    font-size: large;
     color: black;
 }
 #ul-nav>li>a{
-    font-size: x-large;
+    font-size: large;
     color: black;
 }
 
@@ -28,7 +28,7 @@ body{
     background-color: pink;
 }
 .card-body{
-    font-size: larger;
+    font-size: medium;
 }
 .card-header>h5>button>h2{
     color: black;

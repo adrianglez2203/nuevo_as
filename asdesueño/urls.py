@@ -22,6 +22,7 @@ from blog import url_blog
 from inicio import views
 from galeria import views as vistagalery
 from django.conf.urls.static import static
+from blogs import views as blog_view
 
 from servicios import url_servicios
 from wagtail.admin import urls as wagtailadmin_urls
@@ -30,8 +31,10 @@ from wagtail.documents import urls as wagtaildocs_urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.inicio,name='inicio'),
+    path('',views.post_comments),
+
     path('galeria',views.cargar_fotos,name='galeria'),
-    re_path(r'^/blog/as-de-sueños/inicio/', include(wagtail_urls), name='blog'),
+    # re_path(r'^blog/as-de-sueños/inicio/(?P<slug>[-a-zA-Z0-9_]+)', blog_view.post_comments, name='comment'),
     re_path(r'^cms/', include(wagtailadmin_urls)),
     re_path(r'^documents/', include(wagtaildocs_urls)),
 

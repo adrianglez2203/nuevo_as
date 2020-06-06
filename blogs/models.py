@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import render
 from wagtail.contrib.routable_page.models import RoutablePageMixin, route
 from django import forms
 from modelcluster.fields import ParentalKey
@@ -13,10 +14,10 @@ from wagtail.images.blocks import ImageChooserBlock
 from wagtail.search import index
 from wagtail.snippets.models import register_snippet
 from modelcluster.fields import ParentalKey, ParentalManyToManyField
-
+from django.contrib.auth.models import User
 from wagtail.core.fields import StreamField
 from wagtail.core import blocks
-
+import six
 
 class HomePage(Page):
     body = RichTextField(blank=True)
@@ -40,7 +41,7 @@ class BlogCategory(models.Model):
     class Meta:
         verbose_name = "Category"
         verbose_name_plural = "Categories"
-class BlogIndexPage(Page):
+class BlogIndexPage(RoutablePageMixin,Page):
     intro = RichTextField(blank=True)
 
     def get_context(self, request):
@@ -52,7 +53,13 @@ class BlogIndexPage(Page):
     content_panels = Page.content_panels + [
         FieldPanel('intro', classname="full")
     ]
+    @route(r'^$')
+    def index(self,request):
+        contexto = super().get_context(request)
+        blogpages = self.get_children().live().order_by('-first_published_at')
+        contexto['blogpages'] = blogpages
 
+        return render(request, 'blogs/blog_index_page.html',contexto)
 
 
 class BlogPageTag(TaggedItemBase):
@@ -65,13 +72,15 @@ class BlogPageTag(TaggedItemBase):
 class BlogPage(RoutablePageMixin,Page):
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
+    template = 'blogs/blog_page.html'
+    ajax_template = "blogs/blog_page_ajax.html"
     # body = RichTextField(features=['h1','h2', 'h3','h4','h5','h6', 'bold', 'italic', 'link','ol','ul','hr','document-link','image','embed','code','superscript','subscript','blockquote'])
     body = StreamField([
         ('heading', blocks.CharBlock(classname="full title")),
         ('paragraph', blocks.RichTextBlock()),
         ('image', ImageChooserBlock()),
         ('list', blocks.ListBlock(blocks.CharBlock(label=""))),
-        ('document', blocks.BlockQuoteBlock())
+        ('document', blocks.BlockQuoteBlock()),
     ])
 
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
@@ -101,6 +110,22 @@ class BlogPage(RoutablePageMixin,Page):
         InlinePanel('gallery_images', label="Gallery images"),
         FieldPanel('categories', widget=forms.CheckboxSelectMultiple),
     ]
+    def get_context(self, request):
+        context = super().get_context(request)
+        raw_url = context['request'].get_raw_uri()
+        parse_result = six.moves.urllib.parse.urlparse(raw_url)
+        lista = parse_result.path.split('/')
+        slug = lista[4]
+        print(slug)
+        comment1 = Comment.objects.filter(post__slug = slug)
+        # comment2 = Comment.objects.filter(post__slug = 'post-1')
+        # print(comment)
+        post = BlogPage.objects.all()
+        context['comments'] = comment1
+        return context
+
+
+
 
 
 class BlogPageGalleryImage(Orderable):
@@ -127,3 +152,15 @@ class BlogTagIndexPage(Page):
         context['blogpages'] = blogpages
         return context
 
+class Comment(models.Model):
+    author = models.ForeignKey(User,  on_delete=models.CASCADE)
+    fecha_creado= models.DateTimeField(auto_now_add=True, editable=False)
+    fecha_editado = models.DateTimeField(auto_now=True)
+    comentario = models.TextField()
+    post = models.ForeignKey(BlogPage, on_delete=models.SET_NULL, null=True, blank=False, editable=True)
+    def __str__(self):
+        return self.comentario
+    class Meta:
+        ordering= ['-fecha_creado']
+        verbose_name='Comentario'
+        verbose_name_plural='Comentarios'

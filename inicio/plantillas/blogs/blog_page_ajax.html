@@ -1,0 +1,42 @@
+
+                    <!--Comments-->
+                    <div class="card card-comments mb-3 wow fadeIn">
+                      <div class="card-header font-weight-bold">Comentarios</div>
+                      <div class="card-body">
+
+                        <div class="media d-block d-md-flex mt-4">
+                            {% for comment in comments %}
+
+
+
+                          <div class="media-body text-center text-md-left ml-md-3 ml-0">
+                            <h5 class="mt-0 font-weight-bold">Autor
+
+
+
+                              <a href="" class="pull-right">
+                                <i class="fas fa-reply"></i>
+                              </a>
+                            </h5>
+                            <p class="h5">{{ comment.comentario}}
+                              </p>
+                            <div class="media d-block d-md-flex mt-3">
+
+
+                            </div>
+
+
+
+
+
+                          </div>
+                       {% endfor %}
+                        </div>
+
+
+                      </div>
+                    </div>
+                    <!--/.Comments-->
+
+
+{{ form }}
